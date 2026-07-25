@@ -1,101 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<title>SDPL</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-</head>
-<body>
-	
-			
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunasuka</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="nav-shell">
+        <a class="brand" href="#">
+          <img src="https://www.figma.com/api/mcp/asset/75faf845-18a7-478c-8b07-9160b3f1c8a8" alt="Sunasuka logo" />
+          <span>SUNASUKA</span>
+        </a>
 
-	<div class="flex-w flex-str size1 overlay1">
-		<div class="flex-w flex-col-sb wsize1 bg0 p-l-65 p-t-37 p-b-50 p-r-80 respon1">
-			<div class="wrappic1">
-				<a href="https://sunasuka.co.in">
-					<img src="images/logo.png" alt="IMG">
-				</a>
-			</div>		
-	
-			<div class="w-full flex-c-m p-t-80 p-b-90">
-				<div class="wsize2">
-					<h3 align="center" class="l1-txt1 p-b-34 respon3">
-						Coming Soon
-					</h3>
+        <nav class="nav-links" aria-label="Primary navigation">
+          <a class="active" href="#home">Home</a>
+          <a href="#about">About us</a>
+          <a href="#divisions">Divisions</a>
+          <a href="#why-us">Why us</a>
+        </nav>
 
-					<p align="center" class="m2-txt1 p-b-46">
-						Follow us for updates now!
-					</p>
+        <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
 
-					<form class="contact100-form validate-form m-t-10 m-b-10">
-						<div class="wrap-input100 validate-input m-lr-auto-lg" data-validate = "Email is required: ex@abc.xyz">
-							<input class="s2-txt1 placeholder0 input100 trans-04" type="text" name="email" placeholder="Email Address">
+        <a class="nav-button" href="#">Contact Us</a>
+      </div>
+    </header>
 
-							<button class="flex-c-m ab-t-r size2 hov1">
-								<i class="zmdi zmdi-long-arrow-right fs-30 cl1 trans-04"></i>
-							</button>
-						</div>		
-					</form>
-				</div>
-			</div>
-			
-			<div class="flex-w">
-				<a href="https://www.facebook.com/sunasuka.ind/" class="size3 flex-c-m how-social trans-04 m-r-15 m-b-10">
-					<i class="fa fa-facebook"></i>
-				</a>
+    <main class="hero" id="home" role="banner">
+      <div class="hero__content">
+        <h1 class="hero__title">Building the Future.</h1>
+        <p class="hero__subtitle">
+          Premium RERA-approved lands and sustainable eco-luxury living environments.
+        </p>
 
-				<a href="https://twitter.com/sdpl_ind" class="size3 flex-c-m how-social trans-04 m-r-15 m-b-10">
-					<i class="fa fa-twitter"></i>
-				</a>
+        <div class="search-card" aria-label="Quick search">
+          <div class="search-field">
+            <div class="search-field__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M9.5 4A5.5 5.5 0 1 1 4 9.5 5.5 5.5 0 0 1 9.5 4Zm0 0 7.5 7.5" stroke="#112320" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <div class="search-field__label">Property Type</div>
+              <div class="search-field__value">All Properties</div>
+            </div>
+          </div>
 
-				<a href="https://www.youtube.com/channel/UCTGC7ajRh43NNrubzBDlM-A" class="size3 flex-c-m how-social trans-04 m-r-15 m-b-10">
-					<i class="fa fa-youtube-play"></i>
-				</a>
-			</div>
-		</div>
-			
+          <div class="search-divider"></div>
 
-		<div class="wsize1 simpleslide100-parent respon2">
-			<!--  -->
-			<div class="simpleslide100">
-				<div class="simpleslide100-item bg-img1" style="background-image: url('images/bg01.jpg');"></div>
-				<div class="simpleslide100-item bg-img1" style="background-image: url('images/bg02.jpg');"></div>
-				<div class="simpleslide100-item bg-img1" style="background-image: url('images/bg03.jpg');"></div>
-			</div>
-		</div>
-	</div>
+          <div class="search-field">
+            <div class="search-field__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s-6-5.7-6-11a6 6 0 1 1 12 0c0 5.3-6 11-6 11Z" stroke="#112320" stroke-width="2" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <div class="search-field__label">Location</div>
+              <div class="search-field__value">Any Location</div>
+            </div>
+          </div>
 
+          <button class="search-button" type="button">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="m19 19-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="#112320" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Search
+          </button>
+        </div>
+      </div>
+    </main>
 
+    <section class="about-section" id="about">
+      <div class="about-section__image"></div>
+      <div class="about-section__content">
+        <p class="eyebrow">About Us</p>
+        <h2>Elevating living through sustainable excellence.</h2>
+        <p>
+          Sunasuka is committed to redefining modern living through thoughtfully designed
+          developments, premium amenities, and a deep respect for the environment.
+        </p>
+        <p>
+          From serene residences to future-ready communities, every project reflects our belief
+          that quality living should be both luxurious and responsible.
+        </p>
+      </div>
+    </section>
 
-	
+    <section class="divisions-section" id="divisions">
+      <div class="section-header">
+        <h2>Our Core Divisions</h2>
+        <p>Explore the pillars behind our premium living and infrastructure vision.</p>
+      </div>
 
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
+      <div class="divisions-grid">
+        <article class="division-card">
+          <div class="division-card__image division-card__image--farm"></div>
+          <div class="division-card__content">
+            <h3>Farm Land Development</h3>
+            <p>Curated agricultural land and future-ready estate opportunities.</p>
+          </div>
+        </article>
 
-</body>
+        <article class="division-card">
+          <div class="division-card__image division-card__image--luxury"></div>
+          <div class="division-card__content">
+            <h3>Luxury Residences</h3>
+            <p>Elegant homes designed around comfort, privacy, and modern lifestyles.</p>
+          </div>
+        </article>
+
+        <article class="division-card">
+          <div class="division-card__image division-card__image--layouts"></div>
+          <div class="division-card__content">
+            <h3>RERA Approved Layouts</h3>
+            <p>Transparent, regulated, and thoughtfully planned residential layouts.</p>
+          </div>
+        </article>
+
+        <article class="division-card">
+          <div class="division-card__image division-card__image--solar"></div>
+          <div class="division-card__content">
+            <h3>Solar Power Projects</h3>
+            <p>Innovative energy systems that power sustainability at scale.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="why-choose-us-section" id="why-us" aria-label="Why choose us">
+      <div class="why-choose-us__media">
+        <div class="why-choose-us__image"></div>
+      </div>
+
+      <div class="why-choose-us__content">
+        <h2>Elevating Living Through Sustainable Excellence.</h2>
+
+        <div class="feature-list">
+          <article class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M8 12.5 10.8 15 16 9.5" stroke="#112320" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 3 4 7v5c0 5 3.3 8.4 8 10 4.7-1.6 8-5 8-10V7l-8-4Z" stroke="#112320" stroke-width="2" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3>100% RERA Approved</h3>
+              <p>Every land layout and residential project is fully vetted, legally secure, and compliant with government standards.</p>
+            </div>
+          </article>
+
+          <article class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 3v18M3 12h18" stroke="#112320" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="8" stroke="#112320" stroke-width="2" />
+              </svg>
+            </div>
+            <div>
+              <h3>Integrated Solar EPC</h3>
+              <p>We merge real estate with end-to-end solar solutions, reducing carbon footprints while increasing property value.</p>
+            </div>
+          </article>
+
+          <article class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6 18c1.5-2 3.2-3 6-3s4.5 1 6 3" stroke="#112320" stroke-width="2" stroke-linecap="round" />
+                <circle cx="12" cy="8" r="3" stroke="#112320" stroke-width="2" />
+              </svg>
+            </div>
+            <div>
+              <h3>Premium Aesthetics</h3>
+              <p>Uncompromising design quality inspired by high-end resorts, focusing on organic curves and natural materials.</p>
+            </div>
+          </article>
+
+          <article class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 7h14M7 7V5h10v2M8 7v10a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2V7" stroke="#112320" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3>Transparent Transactions</h3>
+              <p>A frictionless, high-trust process for investors and homebuyers, ensuring peace of mind from inquiry to handover.</p>
+            </div>
+          </article>
+        </div>
+
+        <a class="cta-button" href="#">Schedule a Consultation</a>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__top">
+          <div class="footer-brand-block">
+            <div class="footer-brand">
+              <img src="https://www.figma.com/api/mcp/asset/75faf845-18a7-478c-8b07-9160b3f1c8a8" alt="Sunasuka logo" />
+              <span>SUNASUKA</span>
+            </div>
+            <p>
+              Pioneering eco-luxury real estate and sustainable energy solutions for a brighter,
+              greener future.
+            </p>
+            <div class="footer-socials">
+              <a href="#" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="2" />
+                  <circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="2" />
+                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" />
+                </svg>
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M6.94 8.5A1.56 1.56 0 1 0 6.94 5.38a1.56 1.56 0 0 0 0 3.12ZM5.5 9.5h2.88V18H5.5zM10.9 9.5h2.76v1.16h.04c.38-.72 1.32-1.48 2.72-1.48 2.91 0 3.45 1.91 3.45 4.4V18h-2.88v-7.6c0-1.81-.03-4.14-2.52-4.14-2.53 0-2.92 1.97-2.92 4.01V18H10.9z" fill="currentColor" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-column">
+            <h3>Divisions</h3>
+            <ul>
+              <li>Farm Land Development</li>
+              <li>Luxury Residences</li>
+              <li>RERA Approved Layouts</li>
+              <li>Solar EPC Projects</li>
+            </ul>
+          </div>
+
+          <div class="footer-column">
+            <h3>Company</h3>
+            <ul>
+              <li>About Us</li>
+              <li>Our Sustainability</li>
+              <li>Media & Press</li>
+              <li>Contact Support</li>
+            </ul>
+          </div>
+
+          <div class="footer-column footer-column--signup">
+            <h3>Stay Updated</h3>
+            <p>Subscribe to our newsletter for exclusive property releases and company news.</p>
+            <form class="footer-form">
+              <input type="email" placeholder="Email address" />
+              <button type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="site-footer__bottom">
+          <p>© 2026 SUNASUKA Developers Pvt Ltd. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const navShell = document.querySelector('.nav-shell');
+      const menuToggle = document.querySelector('.menu-toggle');
+
+      if (navShell && menuToggle) {
+        menuToggle.addEventListener('click', () => {
+          const isOpen = navShell.classList.toggle('is-open');
+          menuToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+      }
+    </script>
+  </body>
 </html>
