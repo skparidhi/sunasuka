@@ -33,7 +33,7 @@
           <span></span>
         </button>
 
-        <a class="nav-button" href="#">Contact Us</a>
+        <a class="nav-button" href="tel:+917010022890">Contact Us</a>
       </div>
     </header>
 
@@ -44,40 +44,54 @@
           Premium RERA-approved lands and sustainable eco-luxury living environments.
         </p>
 
-        <div class="search-card" aria-label="Quick search">
-          <div class="search-field">
+        <form class="search-card" id="search-form" aria-label="Quick search">
+          <label class="search-field" for="propertyType">
             <div class="search-field__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M9.5 4A5.5 5.5 0 1 1 4 9.5 5.5 5.5 0 0 1 9.5 4Zm0 0 7.5 7.5" stroke="#112320" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </div>
-            <div>
+            <div class="search-field__content">
               <div class="search-field__label">Property Type</div>
-              <div class="search-field__value">All Properties</div>
+              <div class="search-field__value" data-display-for="propertyType">All Properties</div>
+              <select class="search-field__select" id="propertyType" name="propertyType">
+                <option value="all">All Properties</option>
+                <option value="residence">Luxury Residences</option>
+                <option value="layouts">RERA Approved Layouts</option>
+                <option value="solar">Solar Projects</option>
+              </select>
             </div>
-          </div>
+          </label>
 
           <div class="search-divider"></div>
 
-          <div class="search-field">
+          <label class="search-field" for="location">
             <div class="search-field__icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M12 21s-6-5.7-6-11a6 6 0 1 1 12 0c0 5.3-6 11-6 11Z" stroke="#112320" stroke-width="2" stroke-linejoin="round" />
               </svg>
             </div>
-            <div>
+            <div class="search-field__content">
               <div class="search-field__label">Location</div>
-              <div class="search-field__value">Any Location</div>
+              <div class="search-field__value" data-display-for="location">Any Location</div>
+              <select class="search-field__select" id="location" name="location">
+                <option value="all">Any Location</option>
+                <option value="coastal">Coastal</option>
+                <option value="premium">Premium</option>
+              </select>
             </div>
-          </div>
+          </label>
 
-          <button class="search-button" type="button">
+          <button class="search-button" type="submit">
             <svg viewBox="0 0 24 24" fill="none">
               <path d="m19 19-4.2-4.2m1.2-5.3a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" stroke="#112320" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
             Search
           </button>
-        </div>
+          <a class="call-button" href="tel:+917010022890">Call Now</a>
+        </form>
+        <p class="search-status" id="search-status" role="status" aria-live="polite"></p>
+        <div class="search-results" id="search-results" aria-live="polite"></div>
       </div>
     </main>
 
@@ -104,7 +118,7 @@
       </div>
 
       <div class="divisions-grid">
-        <article class="division-card">
+        <article class="division-card" data-property="farm" data-location="eco">
           <div class="division-card__image division-card__image--farm"></div>
           <div class="division-card__content">
             <h3>Farm Land Development</h3>
@@ -112,7 +126,7 @@
           </div>
         </article>
 
-        <article class="division-card">
+        <article class="division-card" data-property="residence" data-location="premium">
           <div class="division-card__image division-card__image--luxury"></div>
           <div class="division-card__content">
             <h3>Luxury Residences</h3>
@@ -120,7 +134,7 @@
           </div>
         </article>
 
-        <article class="division-card">
+        <article class="division-card" data-property="layouts" data-location="urban">
           <div class="division-card__image division-card__image--layouts"></div>
           <div class="division-card__content">
             <h3>RERA Approved Layouts</h3>
@@ -128,7 +142,7 @@
           </div>
         </article>
 
-        <article class="division-card">
+        <article class="division-card" data-property="solar" data-location="coastal">
           <div class="division-card__image division-card__image--solar"></div>
           <div class="division-card__content">
             <h3>Solar Power Projects</h3>
@@ -274,12 +288,106 @@
     <script>
       const navShell = document.querySelector('.nav-shell');
       const menuToggle = document.querySelector('.menu-toggle');
+      const searchForm = document.getElementById('search-form');
+      const searchStatus = document.getElementById('search-status');
+      const searchResults = document.getElementById('search-results');
+      const displayValues = document.querySelectorAll('.search-field__value');
+
+      const sampleProperties = [
+        {
+          title: 'Kottivakkam',
+          type: 'residence',
+          location: 'coastal',
+          price: '₹ 15000/sq.ft',
+          blurb: 'Premium 2BHK and 3BHK apartments in a coastal enclave, designed for elegant modern living and seamless amenities.'
+        },
+        {
+          title: 'Neelangarai',
+          type: 'layouts',
+          location: 'premium',
+          price: '₹ 15 Cr',
+          blurb: 'RERA-approved land for luxury construction, with flexible planning potential and premium coastal appeal.'
+        }
+      ];
 
       if (navShell && menuToggle) {
         menuToggle.addEventListener('click', () => {
           const isOpen = navShell.classList.toggle('is-open');
           menuToggle.setAttribute('aria-expanded', String(isOpen));
         });
+      }
+
+      function updateSelectedLabels() {
+        document.querySelectorAll('.search-field__select').forEach((select) => {
+          const display = document.querySelector(`[data-display-for="${select.id}"]`);
+          if (display) {
+            const selectedOption = select.options[select.selectedIndex];
+            display.textContent = selectedOption ? selectedOption.text : '';
+          }
+        });
+      }
+
+      function showSearchResults() {
+        const formData = new FormData(searchForm);
+        const propertyType = formData.get('propertyType') || 'all';
+        const location = formData.get('location') || 'all';
+
+        const matches = sampleProperties.filter((property) => {
+          const matchesProperty = propertyType === 'all' || property.type === propertyType;
+          const matchesLocation = location === 'all' || property.location === location;
+          return matchesProperty && matchesLocation;
+        });
+
+        if (searchForm) {
+          searchForm.classList.toggle('is-expanded', matches.length > 0);
+        }
+
+        if (searchStatus) {
+          if (matches.length === 0) {
+            searchStatus.textContent = 'No properties match that combination yet. Try another selection.';
+          } else {
+            const propertyLabel = propertyType === 'all' ? 'all property types' : propertyType.replace('-', ' ');
+            const locationLabel = location === 'all' ? 'all locations' : location;
+            const resultLabel = matches.length === 1 ? 'property' : 'properties';
+            searchStatus.textContent = `Showing ${matches.length} ${resultLabel} for ${propertyLabel} in ${locationLabel}.`;
+          }
+        }
+
+        if (searchResults) {
+          if (matches.length === 0) {
+            searchResults.innerHTML = '<div class="search-results__empty">Try broadening the filters to explore more properties.</div>';
+            searchResults.classList.add('is-visible');
+            return;
+          }
+
+          searchResults.innerHTML = `
+            <div class="search-results__grid">
+              ${matches.map((property) => `
+                <article class="search-result-card">
+                  <div class="search-result-card__header">
+                    <h3>${property.title}</h3>
+                    <span>${property.price}</span>
+                  </div>
+                  <p>${property.blurb}</p>
+                </article>
+              `).join('')}
+            </div>
+          `;
+          searchResults.classList.add('is-visible');
+        }
+      }
+
+      if (searchForm) {
+        searchForm.addEventListener('submit', (event) => {
+          event.preventDefault();
+          showSearchResults();
+        });
+
+        document.querySelectorAll('.search-field__select').forEach((select) => {
+          select.addEventListener('change', updateSelectedLabels);
+        });
+
+        updateSelectedLabels();
       }
     </script>
   </body>
