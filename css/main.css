@@ -130,7 +130,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 180px 16px 160px;
-  background-image: url('https://www.figma.com/api/mcp/asset/3733b652-5d79-4502-886a-c12a98e6d232');
+  background-image: url(/img/hero.png);
   background-size: cover;
   background-position: center;
 }
