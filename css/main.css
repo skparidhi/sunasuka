@@ -327,8 +327,13 @@ body {
 .footer-column p,
 .site-footer__bottom p,
 .footer-column li,
+.footer-column a,
 .footer-links a {
   color: #8b9e9b;
+}
+
+.footer-column a {
+  text-decoration: none;
 }
 
 .footer-brand {
