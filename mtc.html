@@ -87,29 +87,29 @@
             
           </div>
 
-          <form id="kyc-form">
+          <form id="kyc-form" method="POST" action="https://script.google.com/macros/s/AKfycbz_1kbDCqR-XBI-cFfrJHm-pPp2oXcXf5Tlk6aLkSdxN1lW21HtGeRfnvR0Z76Rj_mE/exec">
             <div class="field">
               <label class="small">Primary applicant full name (as per AADHAAR / PAN)</label>
-              <input type="text" id="kyc-name" required />
+              <input name="Name" type="text" id="kyc-name" required />
             </div>
             <div style="display:flex;gap:16px;">
               <div style="flex:1;" class="field">
                 <label class="small">Official email address</label>
-                <input type="email" id="kyc-email" required />
+                <input name="Email" type="email" id="kyc-email" required />
               </div>
               <div style="flex:1;" class="field">
                 <label class="small">Phone number</label>
-                <input type="text" id="kyc-phone" required />
+                <input name="Mobile" type="text" id="kyc-phone" required />
               </div>
             </div>
             <div style="display:flex;gap:16px;">
               <div style="flex:1;" class="field">
                 <label class="small">PAN</label>
-                <input type="text" id="kyc-pan" required />
+                <input name="PAN" type="text" id="kyc-pan" required />
               </div>
               <div style="flex:1;" class="field">
                 <label class="small">Legal entity type</label>
-                <select id="kyc-entity">
+                <select name="Entity" id="kyc-entity">
                 <option>Individual (Resident Indian)</option>
                 <option>Individual (Non - Resident Indian)</option>
                 <option>Corporate</option></select>
@@ -117,15 +117,15 @@
             </div>
             <div class="field">
               <label class="small">Permanent Residential / Registration address</label>
-              <textarea rows="3" id="kyc-address" required></textarea>
+              <textarea name="Address" rows="3" id="kyc-address" required></textarea>
             </div>
             <div class="field">
               <label class="small">Price OFFERED (PER ACRE)</label>
-              <input type="text" id="kyc-price" required />
+              <input name="Price" type="text" id="kyc-price" required />
             </div>
             <div class="field">
               <label class="small">REFERRER NAME</label>
-              <input type="text" id="kyc-broker" />
+              <input name="Broker" type="text" id="kyc-broker" />
             </div>
 
             <div style="margin-top:16px;padding-top:17px;border-top:1px solid rgba(208,197,175,0.3);">
@@ -138,9 +138,6 @@
             <div class="actions" style="flex-wrap: wrap;">
               <button class="btn-gold" id="btn-generate-pdf" style="flex:1;display:flex;justify-content:center;gap:8px;box-shadow:0 12px 14px rgba(212,175,55,0.35);font-size:16px;min-width: 200px;" type="submit">
                 Generate Offer Letter
-              </button>
-              <button type="button" class="btn-secondary">
-                Email
               </button>
             </div>
           </form>
@@ -248,11 +245,48 @@
         });
       });
 
-      // PDF Generation Logic
+      // Form Submission to Google Sheets & PDF Logic
       const kycForm = document.getElementById('kyc-form');
+      const submitBtn = document.getElementById('btn-generate-pdf');
+
       kycForm.addEventListener('submit', (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevent default browser form navigation
         
+        // 1. Submit to Google Sheets via fetch
+        const scriptURL = kycForm.action;
+        const formData = new FormData(kycForm);
+        
+        // Add the payment schedule to the form data being sent to sheets
+        let paymentSchedule = 'Outright (100% Advance)';
+        const activePaymentCard = document.querySelector('.payment-card.active');
+        if (activePaymentCard) {
+          const title = activePaymentCard.children[0].innerText.trim();
+          const desc = activePaymentCard.children[1].innerText.trim();
+          paymentSchedule = `${title} - ${desc}`;
+        }
+        formData.append('Payment', paymentSchedule);
+
+        submitBtn.innerText = "Processing...";
+        submitBtn.disabled = true;
+
+        fetch(scriptURL, { method: 'POST', body: formData })
+          .then(response => {
+            console.log('Success!', response);
+            generateAndDownloadPDF(paymentSchedule);
+            alert("Offer Letter Generated & Saved Successfully!");
+          })
+          .catch(error => {
+            console.error('Error!', error.message);
+            alert("There was an error saving your data. PDF will still be generated.");
+            generateAndDownloadPDF(paymentSchedule);
+          })
+          .finally(() => {
+            submitBtn.innerText = "Generate Offer Letter";
+            submitBtn.disabled = false;
+          });
+      });
+
+      function generateAndDownloadPDF(paymentSchedule) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
@@ -265,15 +299,6 @@
         const address = document.getElementById('kyc-address').value;
         const price = document.getElementById('kyc-price').value;
         const broker = document.getElementById('kyc-broker').value || 'N/A';
-
-        // Payment Schedule Selection
-        let paymentSchedule = 'Outright (100% Advance)';
-        const activePaymentCard = document.querySelector('.payment-card.active');
-        if (activePaymentCard) {
-          const title = activePaymentCard.children[0].innerText.trim();
-          const desc = activePaymentCard.children[1].innerText.trim();
-          paymentSchedule = `${title} - ${desc}`;
-        }
         
         // Font setup
         doc.setFont('helvetica');
@@ -332,7 +357,7 @@
         
         // Save the PDF
         doc.save('Offer_Letter_MTC_Nagar.pdf');
-      });
+      }
     </script>
   </body>
 </html>
