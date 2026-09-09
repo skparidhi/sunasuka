@@ -265,6 +265,15 @@
         const address = document.getElementById('kyc-address').value;
         const price = document.getElementById('kyc-price').value;
         const broker = document.getElementById('kyc-broker').value || 'N/A';
+
+        // Payment Schedule Selection
+        let paymentSchedule = 'Outright (100% Advance)';
+        const activePaymentCard = document.querySelector('.payment-card.active');
+        if (activePaymentCard) {
+          const title = activePaymentCard.children[0].innerText.trim();
+          const desc = activePaymentCard.children[1].innerText.trim();
+          paymentSchedule = `${title} - ${desc}`;
+        }
         
         // Font setup
         doc.setFont('helvetica');
@@ -274,29 +283,33 @@
         
         // From section
         doc.text('From,', 20, y);
-        y += 25;
+        doc.text(`${name}`, 20, y + 6);
+        const fromAddr = doc.splitTextToSize(address, 80);
+        doc.text(fromAddr, 20, y + 12);
+        y += 12 + (fromAddr.length * 5) + 15;
         
         // To section
         doc.text('To,', 20, y);
-        doc.text('The CMD,', 20, y + 8);
-        doc.text('SUNASUKA, THANJAVUR', 20, y + 16);
-        y += 35;
+        doc.text('The CMD,', 20, y + 6);
+        doc.text('SUNASUKA, THANJAVUR', 20, y + 12);
+        y += 28;
         
         // Subject line
         doc.text('Dear Sir,', 20, y);
+        y += 12;
         doc.setFont('helvetica', 'bold');
-        doc.text('Sub: Offer for MTC Nagar – Survey No. 637, Thaiyur A, Chengalpattu Dt. - Reg', 20, y + 10);
+        doc.text('Sub: Offer for MTC Nagar – Survey No. 637, Thaiyur A, Chengalpattu Dt. - Reg', 20, y);
         doc.setFont('helvetica', 'normal');
-        y += 25;
+        y += 14;
         
         // Body paragraph
         const para = `We hereby offer a price of Rs. ${price} /acre for the land located in the Survey No. 637, Thaiyur A Village, Thiruporur Taluk, Chengalpattu District. Our personal details are as follows:`;
         const splitText = doc.splitTextToSize(para, 170);
         doc.text(splitText, 20, y);
-        y += 25;
+        y += (splitText.length * 5) + 8;
         
         // Details table
-        const lineH = 7;
+        const lineH = 8;
         const colX = 75;
         doc.text('Name of the Person/Company', 20, y); doc.text(`:   ${name}`, colX, y); y += lineH;
         doc.text('Mail Address', 20, y); doc.text(`:   ${email}`, colX, y); y += lineH;
@@ -309,11 +322,12 @@
         doc.text('Address', 20, y);
         doc.text(':   ', colX, y);
         doc.text(splitAddr, colX + 4, y);
-        y += (splitAddr.length * lineH);
+        y += (splitAddr.length * 5) + 3;
         
         doc.text('Land referred by', 20, y); doc.text(`:   ${broker}`, colX, y); y += lineH;
+        doc.text('Payment Schedule', 20, y); doc.text(`:   ${paymentSchedule}`, colX, y); y += lineH;
         
-        y += 20;
+        y += 35;
         doc.text('Signature of Individual/Company authorised person', 20, y);
         
         // Save the PDF
