@@ -239,7 +239,7 @@ body {
   min-height: 610px;
   border-radius: 32px;
   background: linear-gradient(135deg, rgba(17, 35, 32, 0.16), rgba(17, 35, 32, 0.45)),
-    url('https://www.figma.com/api/mcp/asset/e8d8f811-0a10-461a-9aaf-c65fcbcaad07') center/cover;
+    url('../img/modernsolarhome.png') center/cover;
   box-shadow: 0 24px 55px rgba(17, 35, 32, 0.14);
 }
 
@@ -464,22 +464,22 @@ body {
 
 .division-card__image--farm {
   background-image: linear-gradient(135deg, rgba(17, 35, 32, 0.2), rgba(17, 35, 32, 0.5)),
-    url('https://www.figma.com/api/mcp/asset/f9b7789f-bdf3-43ae-80e5-154b40bcd7e3');
+    url('../img/divisions/farmland.png');
 }
 
 .division-card__image--luxury {
   background-image: linear-gradient(135deg, rgba(17, 35, 32, 0.25), rgba(17, 35, 32, 0.5)),
-    url('https://www.figma.com/api/mcp/asset/07689340-5a20-4e25-90f0-d4561e2b814a');
+    url('../img/divisions/luxury.png');
 }
 
 .division-card__image--layouts {
   background-image: linear-gradient(135deg, rgba(17, 35, 32, 0.25), rgba(17, 35, 32, 0.5)),
-    url('https://www.figma.com/api/mcp/asset/da9e8822-8307-4e75-bb9d-1c4b542f36fc');
+    url('../img/divisions/rera.png');
 }
 
 .division-card__image--solar {
   background-image: linear-gradient(135deg, rgba(17, 35, 32, 0.25), rgba(17, 35, 32, 0.5)),
-    url('https://www.figma.com/api/mcp/asset/6cdddcf5-f954-4964-9941-b1fe6b3d90d0');
+    url('../img/divisions/solar.png');
 }
 
 .division-card__content {
