@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   </head>
   <body>
     <!-- Reuse existing header/nav from site -->
@@ -46,7 +47,7 @@
           <div class="meta-grid">
             <div class="meta-item"><div class="k">Survey Number</div><div class="v">Sy. No. 637<br><small class="meta-sub">Chengalpattu District</small></div></div>
             <div class="meta-item"><div class="k">Plot Extent & Boundary</div><div class="v">1 Acre<br><small class="meta-sub">Thaiyur - A Village</small></div></div>
-            <div class="meta-item"><div class="k">Geo-coordinates</div><div class="v">12°46'03.6"N, 80°12'19.8"E<br><small class="meta-sub meta-highlight">Check Google Maps</small></div></div>
+            <div class="meta-item"><div class="k">Geo-coordinates</div><div class="v">12°46'03.6"N, 80°12'19.8"E<br><small class="meta-sub meta-highlight"></small></div></div>
           </div>
 
           <div class="inspector-wrapper">
@@ -56,8 +57,12 @@
                 <button class="inspector-tab" id="tab-sat" style="font-weight:500;">Satellite & Topo View</button>
               </div>
             </div>
-            <img class="inspector-img" id="img-fmb" src="img/blueprint.png" alt="Cadastral blueprint" />
-            <iframe class="inspector-img" id="iframe-sat" src="https://maps.google.com/maps?q=12°46'03.6%22N,80°12'19.8%22E&t=h&z=17&output=embed" style="display:none; border:0; z-index:1;" allowfullscreen="" loading="lazy"></iframe>
+            
+            <div id="wrapper-fmb" style="position: absolute; top: 62px; bottom: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: center; background: #113e37; overflow: hidden;">
+              <img src="img/blueprint-vector.png" alt="Cadastral blueprint" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.05);" />
+            </div>
+
+            <iframe id="iframe-sat" src="https://maps.google.com/maps?q=12°46'03.6%22N,80°12'19.8%22E&t=h&z=17&output=embed" style="position: absolute; top: 62px; width: 100%; height: calc(100% - 62px); display:none; border:0; z-index:1;" allowfullscreen="" loading="lazy"></iframe>
           </div>
 
           <div>
@@ -65,7 +70,7 @@
             <div class="payment-options">
               <div class="payment-card active"><div style="font-weight:700;font-size:12px;color:#0d3b36;margin-bottom:3px;">Outright</div><div style="font-size:11px;color:#8b9e9b;">100% Advance</div></div>
               <div class="payment-card"><div style="font-weight:700;font-size:12px;color:#0d3b36;margin-bottom:3px;">80% Advance</div><div style="font-size:11px;color:#8b9e9b;">20% During Registration</div></div>
-              <div class="payment-card"><div style="font-weight:700;font-size:12px;color:#0d3b36;margin-bottom:3px;">70% Advance</div><div style="font-size:11px;color:#8b9e9b;">30% Advance</div></div>
+              <div class="payment-card"><div style="font-weight:700;font-size:12px;color:#0d3b36;margin-bottom:3px;">70% Advance</div><div style="font-size:11px;color:#8b9e9b;">30% During Registration</div></div>
             </div>
           </div>
         </section>
@@ -79,56 +84,59 @@
                 <div class="card-subtitle">Legally binding particulars for title registration</div>
               </div>
             </div>
-            <div style="font-size:12px;color:#8b9e9b;font-weight:500;">Step 2 of 2</div>
+            
           </div>
 
-          <form>
+          <form id="kyc-form">
             <div class="field">
               <label class="small">Primary applicant full name (as per AADHAAR / PAN)</label>
-              <input type="text" />
+              <input type="text" id="kyc-name" required />
             </div>
             <div style="display:flex;gap:16px;">
               <div style="flex:1;" class="field">
                 <label class="small">Official email address</label>
-                <input type="email" />
+                <input type="email" id="kyc-email" required />
               </div>
               <div style="flex:1;" class="field">
-                <label class="small">Phone number (+91 format)</label>
-                <input type="text" />
+                <label class="small">Phone number</label>
+                <input type="text" id="kyc-phone" required />
               </div>
             </div>
             <div style="display:flex;gap:16px;">
               <div style="flex:1;" class="field">
                 <label class="small">PAN</label>
-                <input type="text" />
+                <input type="text" id="kyc-pan" required />
               </div>
               <div style="flex:1;" class="field">
                 <label class="small">Legal entity type</label>
-                <select><option>Individual (Resident Indian)</option></select>
+                <select id="kyc-entity">
+                <option>Individual (Resident Indian)</option>
+                <option>Individual (Non - Resident Indian)</option>
+                <option>Corporate</option></select>
               </div>
             </div>
             <div class="field">
               <label class="small">Permanent Residential / Registration address</label>
-              <textarea rows="3"></textarea>
+              <textarea rows="3" id="kyc-address" required></textarea>
             </div>
             <div class="field">
               <label class="small">Price OFFERED (PER ACRE)</label>
-              <input type="text" />
+              <input type="text" id="kyc-price" required />
             </div>
             <div class="field">
-              <label class="small">MEDIAToR / BROKER NAME</label>
-              <input type="text" />
+              <label class="small">REFERRER NAME</label>
+              <input type="text" id="kyc-broker" />
             </div>
 
             <div style="margin-top:16px;padding-top:17px;border-top:1px solid rgba(208,197,175,0.3);">
               <label style="display:flex;gap:12px;align-items:flex-start;background:rgba(251,243,229,0.7);border:1px solid rgba(208,197,175,0.4);border-radius:16px;padding:15px;">
-                <input type="checkbox" style="margin-top:3px;width:16px;height:16px;" />
+                <input type="checkbox" id="kyc-confirm" style="margin-top:3px;width:16px;height:16px;" required />
                 <span style="font-size:12px;color:#4d4635;line-height:1.6;">I confirm that the applicant details match official legal identity records and authorize the generation of formal offer letter.</span>
               </label>
             </div>
 
             <div class="actions" style="flex-wrap: wrap;">
-              <button class="btn-gold" style="flex:1;display:flex;justify-content:center;gap:8px;box-shadow:0 12px 14px rgba(212,175,55,0.35);font-size:16px;min-width: 200px;" type="button">
+              <button class="btn-gold" id="btn-generate-pdf" style="flex:1;display:flex;justify-content:center;gap:8px;box-shadow:0 12px 14px rgba(212,175,55,0.35);font-size:16px;min-width: 200px;" type="submit">
                 Generate Offer Letter
               </button>
               <button type="button" class="btn-secondary">
@@ -209,7 +217,7 @@
     <script>
       const tabFmb = document.getElementById('tab-fmb');
       const tabSat = document.getElementById('tab-sat');
-      const imgFmb = document.getElementById('img-fmb');
+      const wrapperFmb = document.getElementById('wrapper-fmb');
       const iframeSat = document.getElementById('iframe-sat');
 
       if (tabFmb && tabSat) {
@@ -218,7 +226,7 @@
           tabFmb.style.fontWeight = '';
           tabSat.classList.remove('active');
           tabSat.style.fontWeight = '500';
-          imgFmb.style.display = 'block';
+          wrapperFmb.style.display = 'flex';
           iframeSat.style.display = 'none';
         });
 
@@ -227,10 +235,90 @@
           tabSat.style.fontWeight = '';
           tabFmb.classList.remove('active');
           tabFmb.style.fontWeight = '500';
-          imgFmb.style.display = 'none';
+          wrapperFmb.style.display = 'none';
           iframeSat.style.display = 'block';
         });
       }
+
+      const paymentCards = document.querySelectorAll('.payment-card');
+      paymentCards.forEach(card => {
+        card.addEventListener('click', () => {
+          paymentCards.forEach(c => c.classList.remove('active'));
+          card.classList.add('active');
+        });
+      });
+
+      // PDF Generation Logic
+      const kycForm = document.getElementById('kyc-form');
+      kycForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        // Form values
+        const name = document.getElementById('kyc-name').value;
+        const email = document.getElementById('kyc-email').value;
+        const phone = document.getElementById('kyc-phone').value;
+        const pan = document.getElementById('kyc-pan').value;
+        const entity = document.getElementById('kyc-entity').value;
+        const address = document.getElementById('kyc-address').value;
+        const price = document.getElementById('kyc-price').value;
+        const broker = document.getElementById('kyc-broker').value || 'N/A';
+        
+        // Font setup
+        doc.setFont('helvetica');
+        doc.setFontSize(10);
+        
+        let y = 30;
+        
+        // From section
+        doc.text('From,', 20, y);
+        y += 25;
+        
+        // To section
+        doc.text('To,', 20, y);
+        doc.text('The CMD,', 20, y + 8);
+        doc.text('SUNASUKA, THANJAVUR', 20, y + 16);
+        y += 35;
+        
+        // Subject line
+        doc.text('Dear Sir,', 20, y);
+        doc.setFont('helvetica', 'bold');
+        doc.text('Sub: Offer for MTC Nagar – Survey No. 637, Thaiyur A, Chengalpattu Dt. - Reg', 20, y + 10);
+        doc.setFont('helvetica', 'normal');
+        y += 25;
+        
+        // Body paragraph
+        const para = `We hereby offer a price of Rs. ${price} /acre for the land located in the Survey No. 637, Thaiyur A Village, Thiruporur Taluk, Chengalpattu District. Our personal details are as follows:`;
+        const splitText = doc.splitTextToSize(para, 170);
+        doc.text(splitText, 20, y);
+        y += 25;
+        
+        // Details table
+        const lineH = 7;
+        const colX = 75;
+        doc.text('Name of the Person/Company', 20, y); doc.text(`:   ${name}`, colX, y); y += lineH;
+        doc.text('Mail Address', 20, y); doc.text(`:   ${email}`, colX, y); y += lineH;
+        doc.text('Phone Number', 20, y); doc.text(`:   ${phone}`, colX, y); y += lineH;
+        doc.text('PAN', 20, y); doc.text(`:   ${pan}`, colX, y); y += lineH;
+        doc.text('Legal Entity Type', 20, y); doc.text(`:   ${entity}`, colX, y); y += lineH;
+        
+        // Handle multi-line address
+        const splitAddr = doc.splitTextToSize(address, 100);
+        doc.text('Address', 20, y);
+        doc.text(':   ', colX, y);
+        doc.text(splitAddr, colX + 4, y);
+        y += (splitAddr.length * lineH);
+        
+        doc.text('Land referred by', 20, y); doc.text(`:   ${broker}`, colX, y); y += lineH;
+        
+        y += 20;
+        doc.text('Signature of Individual/Company authorised person', 20, y);
+        
+        // Save the PDF
+        doc.save('Offer_Letter_MTC_Nagar.pdf');
+      });
     </script>
   </body>
 </html>
