@@ -64,15 +64,6 @@
 
             <iframe id="iframe-sat" src="https://maps.google.com/maps?q=12°46'03.6%22N,80°12'19.8%22E&t=h&z=17&output=embed" style="position: absolute; top: 62px; width: 100%; height: calc(100% - 62px); display:none; border:0; z-index:1;" allowfullscreen="" loading="lazy"></iframe>
           </div>
-
-          <div>
-            <div style="font-size:10px;font-weight:700;color:#4d4635;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;">Select payment schedule structure</div>
-            <div class="payment-options">
-              <div class="payment-card active"><div style="font-weight:700;font-size:12px;color:#0d3b36;margin-bottom:3px;">Outright</div><div style="font-size:11px;color:#8b9e9b;">100% Advance</div></div>
-              <div class="payment-card"><div style="font-weight:700;font-size:12px;color:#0d3b36;margin-bottom:3px;">80% Advance</div><div style="font-size:11px;color:#8b9e9b;">20% During Registration</div></div>
-              <div class="payment-card"><div style="font-weight:700;font-size:12px;color:#0d3b36;margin-bottom:3px;">70% Advance</div><div style="font-size:11px;color:#8b9e9b;">30% During Registration</div></div>
-            </div>
-          </div>
         </section>
 
         <aside class="card">
@@ -122,6 +113,10 @@
             <div class="field">
               <label class="small">Price OFFERED (PER ACRE)</label>
               <input name="Price" type="text" id="kyc-price" required />
+            </div>
+            <div class="field">
+              <label class="small" for="kyc-payment">Mode of Payment</label>
+              <textarea name="Payment" rows="3" id="kyc-payment" required></textarea>
             </div>
             <div class="field">
               <label class="small">REFERRER NAME</label>
@@ -237,14 +232,6 @@
         });
       }
 
-      const paymentCards = document.querySelectorAll('.payment-card');
-      paymentCards.forEach(card => {
-        card.addEventListener('click', () => {
-          paymentCards.forEach(c => c.classList.remove('active'));
-          card.classList.add('active');
-        });
-      });
-
       // Form Submission to Google Sheets & PDF Logic
       const kycForm = document.getElementById('kyc-form');
       const submitBtn = document.getElementById('btn-generate-pdf');
@@ -255,16 +242,7 @@
         // 1. Submit to Google Sheets via fetch
         const scriptURL = kycForm.action;
         const formData = new FormData(kycForm);
-        
-        // Add the payment schedule to the form data being sent to sheets
-        let paymentSchedule = 'Outright (100% Advance)';
-        const activePaymentCard = document.querySelector('.payment-card.active');
-        if (activePaymentCard) {
-          const title = activePaymentCard.children[0].innerText.trim();
-          const desc = activePaymentCard.children[1].innerText.trim();
-          paymentSchedule = `${title} - ${desc}`;
-        }
-        formData.append('Payment', paymentSchedule);
+        const paymentSchedule = document.getElementById('kyc-payment').value.trim();
 
         submitBtn.innerText = "Processing...";
         submitBtn.disabled = true;
@@ -359,5 +337,9 @@
         doc.save('Offer_Letter_MTC_Nagar.pdf');
       }
     </script>
-  </body>
+  </bodyconst splitPayment = doc.splitTextToSize(paymentSchedule, 100);
+        doc.text('Mode of Payment', 20, y);
+        doc.text(':   ', colX, y);
+        doc.text(splitPayment, colX + 4, y);
+        y += (splitPayment.length * 5) + 3
 </html>
