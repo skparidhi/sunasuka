@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Copy this file to <code>.html (e.g. abc.html), fill in window.PROJECT below, commit and push. -->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Project Name</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <script>
+      window.PROJECT = {
+        name: 'Project Name',
+        details: [
+          { label: 'Survey Number', value: 'Sy. No. 000', sub: 'Village / District' },
+          { label: 'Land Extent', value: '0 Grounds', sub: 'Village' }
+        ],
+        coordsDisplay: '12.000000, 80.000000',
+        mapQuery: '12.000000,80.000000',
+        // Image path (e.g. 'img/abc-fmb.png') to show the FMB SKETCH tab, or null for map only
+        fmbImage: null,
+        priceUnit: 'ground',
+        pdfSubject: 'Survey No. 000, Village Name',
+        pdfLandDescription: 'measuring 0 Grounds located in the Survey No. 000, Village Name'
+      };
+    </script>
+    <script src="js/offer-page.js"></script>
+  </body>
+</html>
