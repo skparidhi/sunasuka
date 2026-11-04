@@ -78,7 +78,8 @@
             
           </div>
 
-          <form id="kyc-form" method="POST" action="https://script.google.com/macros/s/AKfycbz_1kbDCqR-XBI-cFfrJHm-pPp2oXcXf5Tlk6aLkSdxN1lW21HtGeRfnvR0Z76Rj_mE/exec">
+          <form id="kyc-form" method="POST" action="https://script.google.com/macros/s/AKfycbzUBUAKldilxze7Qz8TS1p2Q-iuD6ZUokQmsABU2KG0RYoHPMBwE-mChPVvsUxTADtv/exec">
+            <input type="hidden" name="Project" value="MTC Nagar" />
             <div class="field">
               <label class="small">Primary applicant full name (as per AADHAAR / PAN)</label>
               <input name="Name" type="text" id="kyc-name" required />
@@ -248,8 +249,9 @@
         submitBtn.disabled = true;
 
         fetch(scriptURL, { method: 'POST', body: formData })
-          .then(response => {
-            console.log('Success!', response);
+          .then(response => response.json())
+          .then(data => {
+            if (data.result !== 'success') throw new Error(data.error || 'Unknown error');
             generateAndDownloadPDF(paymentSchedule);
             alert("Offer Letter Generated & Saved Successfully!");
           })
@@ -328,7 +330,11 @@
         y += (splitAddr.length * 5) + 3;
         
         doc.text('Land referred by', 20, y); doc.text(`:   ${broker}`, colX, y); y += lineH;
-        doc.text('Payment Schedule', 20, y); doc.text(`:   ${paymentSchedule}`, colX, y); y += lineH;
+        const splitPayment = doc.splitTextToSize(paymentSchedule, 100);
+        doc.text('Mode of Payment', 20, y);
+        doc.text(':   ', colX, y);
+        doc.text(splitPayment, colX + 4, y);
+        y += (splitPayment.length * 5) + 3;
         
         y += 35;
         doc.text('Signature of Individual/Company authorised person', 20, y);
@@ -337,9 +343,5 @@
         doc.save('Offer_Letter_MTC_Nagar.pdf');
       }
     </script>
-  </bodyconst splitPayment = doc.splitTextToSize(paymentSchedule, 100);
-        doc.text('Mode of Payment', 20, y);
-        doc.text(':   ', colX, y);
-        doc.text(splitPayment, colX + 4, y);
-        y += (splitPayment.length * 5) + 3
+  </body>
 </html>
